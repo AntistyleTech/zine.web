@@ -1,14 +1,31 @@
 env=local
 web_app=app
 
-.PHONY: install build
+.PHONY: build rebuild up down
 
 build:
 	@docker compose -f compose.$(env).yaml build
 
-up:
-	@docker compose -f $COMPOSE_FILE up -d
+rebuild:
+	@docker compose -f compose.$(env).yaml up --build --force-recreate
 
-install:
+up:
+	@docker compose -f compose.$(env).yaml up -d
+
+down:
+	@docker compose -f compose.$(env).yaml down
+
+
+.PHONY: install npm-install npm-build npm-dev
+
+install: npm-install npm-build
+
+npm-install:
 	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(id -u):$(id -g) $(web_app) npm install
+
+npm-dev:
+	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(id -u):$(id -g) $(web_app) npm run dev
+
+npm-build:
 	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(id -u):$(id -g) $(web_app) npm run build
+
