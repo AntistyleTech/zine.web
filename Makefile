@@ -1,6 +1,9 @@
 env=local
 web_app=app
 
+uid=1000
+gid=1000
+
 .PHONY: build rebuild up down
 
 build:
@@ -18,14 +21,24 @@ down:
 
 .PHONY: install npm-install npm-build npm-dev
 
-install: npm-install npm-build
+install: npm-install npm-build up
 
 npm-install:
-	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(id -u):$(id -g) $(web_app) npm install
+	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(uid):$(gid) $(web_app) npm install
 
 npm-dev:
-	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(id -u):$(id -g) $(web_app) npm run dev
+	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(uid):$(gid) $(web_app) npm run dev
 
 npm-build:
-	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(id -u):$(id -g) $(web_app) npm run build
+	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(uid):$(gid) $(web_app) npm run build
+
+
+.PHONY: exec exec-root
+
+exec:
+	@docker compose -f compose.$(env).yaml run --user $(uid):$(gid) $(web_app) bash
+
+exec-root:
+	@docker compose -f compose.$(env).yaml run --user root:root $(web_app) bash
+
 

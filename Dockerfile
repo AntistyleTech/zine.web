@@ -1,23 +1,27 @@
-# Specify base image
-FROM node:21-slim
+FROM node:20 as node
 
-# Specify working directory
+ARG UID=1000
+ARG GID=1000
+
 WORKDIR /app
 
-# Copy application files
-COPY . .
+RUN usermod -u ${UID} node
+RUN groupmod -g ${GID} node
+RUN usermod -d /app node
 
-# Install build dependencies
-RUN npm install --non-interactive
+RUN mkdir -p /home/node/.npm \
+&& chown -R node:node /home/node/.npm
 
-# Run build
-RUN npm run build
+ENV npm_config_cache /home/node/.npm
 
-# Specify host variable
+COPY --chown=node package.json package.json
+RUN npm install
+
+COPY --chown=node . .
+RUN npm build
+
 ENV HOST 0.0.0.0
 
-# Expose Nuxt port
 EXPOSE 3000
 
-# Specify image command
 CMD ["node", ".output/server/index.mjs"]
