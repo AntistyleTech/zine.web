@@ -19,26 +19,21 @@ down:
 	@docker compose -f compose.$(env).yaml down
 
 
-.PHONY: install npm-install npm-build npm-dev
+.PHONY: install npm-local-install
 
-install: npm-install npm-build up
+install: npm-local-install build up
 
-npm-install:
-	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(uid):$(gid) $(web_app) npm install
-
-npm-dev:
-	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(uid):$(gid) $(web_app) npm run dev
-
-npm-build:
-	@docker compose -f compose.$(env).yaml run --rm --no-deps --user $(uid):$(gid) $(web_app) npm run build
-
+npm-local-install:
+	@npm install
+	@npm run build
+	@npm run postinstall
 
 .PHONY: exec exec-root
 
 exec:
-	@docker compose -f compose.$(env).yaml run --user $(uid):$(gid) $(web_app) bash
+	@docker compose -f compose.$(env).yaml exec --user $(uid):$(gid) $(web_app) sh
 
 exec-root:
-	@docker compose -f compose.$(env).yaml run --user root:root $(web_app) bash
+	@docker compose -f compose.$(env).yaml exec --user root:root $(web_app) sh
 
 
