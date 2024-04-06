@@ -19,16 +19,14 @@ down:
 	@docker compose -f compose.$(env).yaml down
 
 
-.PHONY: install npm-local-install
+.PHONY: install run-npm-install
 
-install: npm-local-install build up
+install: run-npm-install up
 
-npm-local-install:
-	@npm install
-	@npm run build
-	@npm run postinstall
+run-npm-install:
+	@docker compose -f compose.$(env).yaml run --user $(uid):$(gid) $(web_app) npm install && npm run build && npm run postinstall
 
-.PHONY: exec exec-root
+.PHONY: exec run exec-root
 
 exec:
 	@docker compose -f compose.$(env).yaml exec --user $(uid):$(gid) $(web_app) sh

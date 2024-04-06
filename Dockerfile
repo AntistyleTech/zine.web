@@ -3,15 +3,14 @@ FROM node:18.13-alpine as node
 ARG UID=1000
 ARG GID=1000
 
-WORKDIR /app
+RUN mkdir -p /usr/src/app
 
-COPY --chown=$UID:$GID package.json .
-COPY --chown=$UID:$GID package-lock.json .
-RUN npm install
+WORKDIR /usr/src/app
 
-COPY --chown=$UID:$GID . /app
-RUN npm run build
-RUN npm run postinstall
+RUN apk update && apk upgrade
+RUN apk add git
+
+COPY  --chown=$UID:$GID . /usr/src/app/
 
 EXPOSE 3000
 
