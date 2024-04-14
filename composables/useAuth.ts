@@ -1,0 +1,38 @@
+export function useAuth() {
+
+  const sanctumCookie = () => {
+    return useApi('/auth/sanctum/csrf-cookie')
+  }
+
+  async function updateSanctumCookie() {
+    await sanctumCookie()
+    const token = useCookie('XSRF-TOKEN');
+    console.log(token)
+  }
+
+  async function register(username: string, email: string, password: string) {
+    await updateSanctumCookie()
+    return useApi('/auth/register', {
+      method: 'POST',
+      body: {username, email, password}
+    })
+  }
+
+  async function login(login: string, password: string) {
+    await updateSanctumCookie()
+    return useApi('/auth/login', {
+      method: 'POST',
+      body: {login, password}
+    })
+  }
+
+  const logout = () => {
+    return useApi('/auth/logout')
+  }
+
+  const me = () => {
+    return useApi('/auth/me')
+  }
+
+  return {sanctumCookie, login, register, logout, me}
+}
