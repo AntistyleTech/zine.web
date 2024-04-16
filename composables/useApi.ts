@@ -17,6 +17,7 @@ export function useApi<T>(
     defaultOptions.headers['X-XSRF-TOKEN'] = token.value as string
   }
 
+  // useAsyncData ?
   return $fetch<T>(path, {
     ...defaultOptions,
     ...options

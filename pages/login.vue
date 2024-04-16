@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <LoginCard/>
+    <AuthCardLogin/>
   </div>
 </template>
 

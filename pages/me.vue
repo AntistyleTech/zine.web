@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <PersonalCard/>
+    <AuthCardPersonal/>
   </div>
 </template>
 

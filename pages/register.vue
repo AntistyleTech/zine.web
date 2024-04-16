@@ -2,7 +2,7 @@
 
 <template>
   <div>
-    <RegisterCrad/>
+    <AuthCardRegister/>
   </div>
 </template>
 

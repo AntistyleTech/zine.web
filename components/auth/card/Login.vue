@@ -3,7 +3,7 @@
 <template>
   <div>
     <UCard>
-      <FormRegister/>
+      <AuthFormLogin/>
     </UCard>
   </div>
 </template>
