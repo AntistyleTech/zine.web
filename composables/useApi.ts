@@ -1,4 +1,4 @@
-export function useApi<T>(
+export function useApi(
   path: string,
   options: object = {}
 ) {
@@ -18,7 +18,7 @@ export function useApi<T>(
   }
 
   // useAsyncData ?
-  return $fetch<T>(path, {
+  return $fetch(path, {
     ...defaultOptions,
     ...options
   })
