@@ -1,5 +1,4 @@
 import {defineStore} from "pinia";
-import {useAuth} from "~/composables/useAuth";
 
 type User = {
   id: number,
@@ -19,8 +18,9 @@ export const useAuthStore = defineStore({
   actions: {
     async login(login: string, password: string) {
       await useAuth().login(login, password)
-        .then((data) => {
-          this.user = data as User
+        .then((response) => {
+          console.log(response.data)
+          this.user = response.data as User
         })
         .catch((error) => {
           console.log(error)
