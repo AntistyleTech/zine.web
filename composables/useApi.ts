@@ -18,7 +18,7 @@ export function useApi(
   }
 
   // useAsyncData ?
-  return $fetch(path, {
+  return useFetch(path, {
     ...defaultOptions,
     ...options
   })

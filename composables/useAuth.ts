@@ -6,8 +6,6 @@ export function useAuth() {
 
   async function updateSanctumCookie() {
     await sanctumCookie()
-    const token = useCookie('XSRF-TOKEN');
-    console.log(token)
   }
 
   async function register(username: string, email: string, password: string) {
@@ -27,7 +25,7 @@ export function useAuth() {
   }
 
   const logout = () => {
-    return useApi('/auth/logout')
+    return useApi('/auth/logout', {method: 'POST'})
   }
 
   const me = () => {
