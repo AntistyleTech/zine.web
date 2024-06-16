@@ -4,7 +4,7 @@ import {type InferType, object, string} from 'yup'
 import type {FormSubmitEvent} from '#ui/types'
 
 const schema = object({
-  username: string().required(),
+  username: string().required('Required'),
   email: string().email('Invalid email').required('Required'),
   password: string()
       .min(6, 'Must be at least 6 characters')
@@ -54,7 +54,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInput v-model="state.passwordConfirm" type="password"/>
     </UFormGroup>
 
-    <UButton type="submit">
+    <UButton block type="submit">
       Register
     </UButton>
   </UForm>

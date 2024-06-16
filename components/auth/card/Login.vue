@@ -3,6 +3,9 @@
 <template>
   <div>
     <UCard>
+      <template #header>
+        <h5 class="font-bold text-lg">Login</h5>
+      </template>
       <AuthFormLogin/>
     </UCard>
   </div>

@@ -20,14 +20,16 @@ const state = reactive({
 const authStore = useAuthStore()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
+  //TODO: error handler
   await authStore.login(event.data.login, event.data.password)
+  navigateTo('/me')
 }
 
 </script>
 
 <template>
   <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-    <UFormGroup label="@username or email" name="credential">
+    <UFormGroup label="Username or Email" name="credential">
       <UInput v-model="state.login"/>
     </UFormGroup>
 
@@ -35,7 +37,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UInput v-model="state.password" type="password"/>
     </UFormGroup>
 
-    <UButton type="submit">
+    <UButton block type="submit">
       Login
     </UButton>
   </UForm>

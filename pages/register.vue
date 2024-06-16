@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>
+  <div class="w-3/4 md:w-2/5">
     <AuthCardRegister/>
   </div>
 </template>
