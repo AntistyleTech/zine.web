@@ -22,6 +22,7 @@ const authStore = useAuthStore()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   //TODO: error handler
   await authStore.login(event.data.login, event.data.password)
+  // TODO: redirect to @username
   navigateTo('/me')
 }
 

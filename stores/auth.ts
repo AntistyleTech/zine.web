@@ -2,12 +2,13 @@ import {defineStore} from "pinia";
 
 type User = {
   id: number,
-  username: string,
+  name: string,
   email: string
 }
 
 export const useAuthStore = defineStore({
   id: 'auth',
+  persist: true,
 
   state: () => {
     return {
@@ -19,8 +20,9 @@ export const useAuthStore = defineStore({
     async login(login: string, password: string) {
       await useAuth().login(login, password)
         .then((response) => {
-          console.log(response.data)
-          this.user = response.data as User
+          let data = response
+          console.log(data)
+          this.user = response as User
         })
         .catch((error) => {
           console.log(error)
@@ -30,8 +32,8 @@ export const useAuthStore = defineStore({
         })
     },
 
-    async register(username: string, email: string, password: string) {
-      const response = await useAuth().register(username, email, password)
+    async register(name: string, email: string, password: string) {
+      const response = await useAuth().register(name, email, password)
       this.user = response as User
       return this.user
     },
@@ -43,7 +45,7 @@ export const useAuthStore = defineStore({
 
     async me() {
       const response = await useAuth().me()
-      this.user = response ? response as User : undefined
+      this.user = response ? response as unknown as User : undefined
       return this.user
     }
 

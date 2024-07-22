@@ -7,7 +7,7 @@ const user = auth.user
   <div>
     <UCard>
       <div v-if="user">
-        <h5>👋 Hi, Authorized user {{ user.username }}</h5>
+        <h5>👋 Hi, Authorized user {{ user.name }}</h5>
         <p>
           {{ user }}
         </p>

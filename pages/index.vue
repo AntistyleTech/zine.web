@@ -1,9 +1,15 @@
-<script lang="ts" setup></script>
+<script setup lang="ts">
+
+</script>
 
 <template>
-  <div>
-    Page: index
-  </div>
+
+<ClientOnly>
+  <editor></editor>
+</ClientOnly>
+
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

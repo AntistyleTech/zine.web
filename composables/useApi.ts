@@ -4,7 +4,7 @@ export function useApi(
 ) {
   // TODO: provide baseURL by .env
   let defaultOptions: any = {
-    baseURL: 'http://api.host.local/api',
+    baseURL: 'http://localhost/api',
     credentials: "include",
     watch: false,
     headers: {
@@ -18,7 +18,7 @@ export function useApi(
   }
 
   // useAsyncData ?
-  return useFetch(path, {
+  return $fetch(path, {
     ...defaultOptions,
     ...options
   })

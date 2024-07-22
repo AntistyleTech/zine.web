@@ -3,7 +3,15 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     modules: [
         '@pinia/nuxt',
+        '@pinia-plugin-persistedstate/nuxt',
         '@nuxt/ui',
-        "@nuxtjs/google-fonts"
-    ]
+        "nuxt-tiptap-editor",
+        "@nuxt/image"
+    ],
+    tiptap: {
+        prefix: "Tiptap"
+    },
+    ui: {
+        icons: ['majesticons']
+    }
 })
