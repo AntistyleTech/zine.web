@@ -24,7 +24,8 @@ export function useAuth() {
     })
   }
 
-  const logout = () => {
+  async function logout() {
+    await updateSanctumCookie()
     return useApi('/auth/logout', {method: 'POST'})
   }
 

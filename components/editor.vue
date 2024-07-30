@@ -26,21 +26,70 @@ onMounted(() => {
       class: List
     }
     },
+    data: {
+      blocks: [
+        { type: 'paragraph', data: { text: 'Initial content 2' } },
+        { type: 'paragraph', data: { text: 'Initial content 3' } },
+        { type: 'paragraph', data: { text: 'Initial content 4' } },
+        { type: 'paragraph', data: { text: 'Initial content 57698' } },
+      ],
+    },
 
     onReady: () => {
+      editor.value.render(editor.data)
       console.log('Editor.js is ready to work!')
     },
 
-    onChange: async (api, event) => {
-      try {
-        const output = await api.saver.save()
-        console.log('Editor content:', output)
-      } catch (error) {
-        console.error('Error saving editor content:', error)
-      }
-    },
+    // onChange: async (api, event) => {
+    //   try {
+    //     const output = await api.saver.save()
+    //     console.log('Editor content:', output)
+    //
+    //     const contentItems = output.blocks.map(block => ({
+    //       type: block.type,
+    //       data: block.data,
+    //     }));
+    //     console.log(contentItems)
+    //   } catch (error) {
+    //     console.error('Error saving editor content:', error)
+    //   }
+    // },
   })
 })
+
+  const test = async () => {
+    const token = useCookie('XSRF-TOKEN')
+    console.log(token.value)
+    if (editor.value) {
+      try {
+        const output = await editor.value.save();
+        console.log('Editor content:', output);
+
+        const contentItems = output.blocks.map(block => ({
+          type: block.type,
+          data: block.data,
+        }));
+        console.log(contentItems);
+
+        const response = await $fetch( 'http://localhost/api/post', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'X-XSRF-TOKEN': token.value,
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+          },
+        body: JSON.stringify({ contentItems }),
+        });
+
+        const result = await response;
+        console.log('Server response:', result);
+      } catch (error) {
+        console.error('Error saving editor content:', error);
+      }
+    }
+}
 
 onBeforeUnmount(() => {
   if (editor.value) {
@@ -52,7 +101,8 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="flex justify-center items-start w-full">
-    <div class="block w-3/4 shadow p-2 h-screen" id="editor"></div>
+    <div  class="block w-3/4 shadow p-2 h-screen" id="editor"></div>
+    <UButton @click="test"> Save</UButton>
   </div>
 </template>
 
