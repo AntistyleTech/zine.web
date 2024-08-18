@@ -31,3 +31,14 @@ Locally preview production build:
 ```bash
 npm run preview
 ```
+
+To generate Nuxi:
+
+```bash
+make exec
+```
+
+```bash
+npx nuxi add page path/to/page
+
+```

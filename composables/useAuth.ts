@@ -1,7 +1,9 @@
 export function useAuth() {
 
+  const { $api } = useNuxtApp()
+
   const sanctumCookie = () => {
-    return useApi('/auth/sanctum/csrf-cookie')
+    return $api('/auth/sanctum/csrf-cookie')
   }
 
   async function updateSanctumCookie() {
@@ -10,7 +12,7 @@ export function useAuth() {
 
   async function register(name: string, email: string, password: string) {
     await updateSanctumCookie()
-    return useApi('/auth/register', {
+    return $api('/auth/register', {
       method: 'POST',
       body: {name, email, password}
     })
@@ -18,7 +20,7 @@ export function useAuth() {
 
   async function login(login: string, password: string) {
     await updateSanctumCookie()
-    return useApi('/auth/login', {
+    return $api('/auth/login', {
       method: 'POST',
       body: {login, password}
     })
@@ -26,11 +28,11 @@ export function useAuth() {
 
   async function logout() {
     await updateSanctumCookie()
-    return useApi('/auth/logout', {method: 'POST'})
+    return $api('/auth/logout', {method: 'POST'})
   }
 
   const me = () => {
-    return useApi('/auth/me')
+    return $api('/auth/me')
   }
 
   return {sanctumCookie, login, register, logout, me}

@@ -5,13 +5,18 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
         '@nuxt/ui',
-        "nuxt-tiptap-editor",
-        "@nuxt/image"
+        "@nuxt/image",
+        "@nuxt/icon"
     ],
-    tiptap: {
-        prefix: "Tiptap"
+    // experimental: {
+    //     viewTransition: true
+    // },
+    icon: {
+        provider: 'iconify'
     },
     ui: {
         icons: ['majesticons']
-    }
+    },
+
+
 })

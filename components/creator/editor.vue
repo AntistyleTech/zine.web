@@ -7,11 +7,18 @@ import Paragraph from "@editorjs/paragraph";
 const editor = ref(null)
 const placeholderText = 'Write something...'
 
+const props = defineProps({
+  initialData: {
+    type: Array,
+  },
+});
+
 onMounted(() => {
   editor.value = new EditorJS({
     holder: 'editor',
     autofocus: true,
     placeholder: placeholderText,
+    // data: initialData,
     tools: {
       header: {
         class: Header,
@@ -26,14 +33,6 @@ onMounted(() => {
       class: List
     }
     },
-    data: {
-      blocks: [
-        { type: 'paragraph', data: { text: 'Initial content 2' } },
-        { type: 'paragraph', data: { text: 'Initial content 3' } },
-        { type: 'paragraph', data: { text: 'Initial content 4' } },
-        { type: 'paragraph', data: { text: 'Initial content 57698' } },
-      ],
-    },
 
     onReady: () => {
       editor.value.render(editor.data)
@@ -43,7 +42,7 @@ onMounted(() => {
     // onChange: async (api, event) => {
     //   try {
     //     const output = await api.saver.save()
-    //     console.log('Editor content:', output)
+    //     console.log('Editor post:', output)
     //
     //     const contentItems = output.blocks.map(block => ({
     //       type: block.type,
@@ -51,19 +50,19 @@ onMounted(() => {
     //     }));
     //     console.log(contentItems)
     //   } catch (error) {
-    //     console.error('Error saving editor content:', error)
+    //     console.error('Error saving editor post:', error)
     //   }
     // },
   })
 })
 
-  const test = async () => {
+  const savePost = async () => {
     const token = useCookie('XSRF-TOKEN')
     console.log(token.value)
     if (editor.value) {
       try {
         const output = await editor.value.save();
-        console.log('Editor content:', output);
+        console.log('Editor post:', output);
 
         const contentItems = output.blocks.map(block => ({
           type: block.type,
@@ -86,10 +85,12 @@ onMounted(() => {
         const result = await response;
         console.log('Server response:', result);
       } catch (error) {
-        console.error('Error saving editor content:', error);
+        console.error('Error saving editor post:', error);
       }
     }
 }
+
+  const updatePost = async () => {}
 
 onBeforeUnmount(() => {
   if (editor.value) {
@@ -102,7 +103,8 @@ onBeforeUnmount(() => {
 <template>
   <div class="flex justify-center items-start w-full">
     <div  class="block w-3/4 shadow p-2 h-screen" id="editor"></div>
-    <UButton @click="test"> Save</UButton>
+    <UButton @click="savePost"> Save</UButton>
+    <UButton v-if="initialData" @click="updatePost"> Update</UButton>
   </div>
 </template>
 
