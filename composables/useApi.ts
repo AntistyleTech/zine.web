@@ -3,8 +3,12 @@ export function useApi(
   options: object = {}
 ) {
   // TODO: provide baseURL by .env
+  const apiBaseUrl = process.client
+    ? 'http://localhost/api'
+    : 'http://host.docker.internal/api';
+
   let defaultOptions: any = {
-    baseURL: 'http://api.host.local/api',
+    baseURL: apiBaseUrl,
     credentials: "include",
     watch: false,
     headers: {
@@ -17,8 +21,7 @@ export function useApi(
     defaultOptions.headers['X-XSRF-TOKEN'] = token.value as string
   }
 
-  // useAsyncData ?
-  return useFetch(path, {
+  return $fetch(path, {
     ...defaultOptions,
     ...options
   })

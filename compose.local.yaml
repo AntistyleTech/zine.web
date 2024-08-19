@@ -13,7 +13,7 @@ services:
             HOST: 0.0.0.0
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.web.rule=Host(`web.host.local`)"
+            - "traefik.http.routers.web.rule=PathPrefix(`/`)"
             - "traefik.http.routers.web.service=web"
             - "traefik.http.services.web.loadbalancer.server.port=3000"
         volumes:
