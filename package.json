@@ -37,13 +37,10 @@
     "nuxt": "^3.11.1",
     "nuxt-tiptap-editor": "^1.1.2",
     "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
-    "@egoist/tailwindcss-icons": "^1.8.1",
-    "@pinia-plugin-persistedstate/nuxt": "^1.2.1"
   }
 }
