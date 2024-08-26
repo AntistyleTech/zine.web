@@ -21,6 +21,7 @@ export function useApi(
     defaultOptions.headers['X-XSRF-TOKEN'] = token.value as string
   }
 
+  console.log({url: apiBaseUrl, path: path})
   return $fetch(path, {
     ...defaultOptions,
     ...options

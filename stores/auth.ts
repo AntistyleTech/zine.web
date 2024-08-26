@@ -1,5 +1,3 @@
-import {defineStore} from "pinia";
-
 type User = {
   id: number,
   name: string,
@@ -8,11 +6,10 @@ type User = {
 
 export const useAuthStore = defineStore({
   id: 'auth',
-  persist: true,
 
   state: () => {
     return {
-      user: undefined as User | undefined
+      user: {}
     }
   },
 
@@ -48,6 +45,5 @@ export const useAuthStore = defineStore({
       this.user = response ? response as unknown as User : undefined
       return this.user
     }
-
   }
 })
