@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="js">
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
@@ -13,12 +13,14 @@ const props = defineProps({
   },
 });
 
+const initialData = { blocks: props.initialData.data.blocks};
+console.log(initialData)
 onMounted(() => {
   editor.value = new EditorJS({
     holder: 'editor',
     autofocus: true,
     placeholder: placeholderText,
-    // data: initialData,
+    data: initialData,
     tools: {
       header: {
         class: Header,

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const {data: socials} = await useAsyncData(() => useSocial().getAvailable())
-const {data: accounts} = await useAsyncData(() => useSocial().getAccounts())
+const accounts = ref([])
+
+onMounted(async () => {
+  accounts.value = await useSocial().getAccounts()
+})
 </script>
 
 <template>
@@ -13,7 +17,11 @@ const {data: accounts} = await useAsyncData(() => useSocial().getAccounts())
       />
     </UCard>
     <UCard>
-      {{accounts}}
+      Accounts: <br>
+      <p v-for="account in accounts">
+        {{account.id}}
+        {{account.social_network}}
+      </p>
     </UCard>
   </div>
 </template>

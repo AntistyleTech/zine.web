@@ -13,7 +13,7 @@ console.log(props.post)
     <template #footer>
       <UButton
           v-text="'Edit post'"
-          @:click="navigateTo('/creator/post/' + post.id)"
+          @click="navigateTo('/creator/post/' + post.id)"
       />
       <UButton
           v-text="'Export post'"

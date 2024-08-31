@@ -6,6 +6,7 @@ type User = {
 
 export const useAuthStore = defineStore({
   id: 'auth',
+  persist: true,
 
   state: () => {
     return {
