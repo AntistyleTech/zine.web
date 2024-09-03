@@ -12,7 +12,14 @@ const editorData = {
 
 <template>
 <!--  <CreatorPostEdit :post="post.va"/>-->
-<editor-render  :blocks="editorData.blocks"/>
+  <client-only>
+    <div class="flex flex-col">
+      <h3>this iis editor render</h3>
+      <editor-render  :blocks="editorData.blocks"/>
+    </div>
+
+  </client-only>
+
 <!--  <client-only>-->
 <!--    <editor :initial-data="post"/>-->
 <!--  </client-only>-->

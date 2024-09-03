@@ -1,14 +1,13 @@
 <script setup>
 defineProps({
-  items: Array,
-  style: String,
+  data: Object
 });
 
-const listTag = computed(() => (style === 'ordered' ? 'ol' : 'ul'));
+const listTag = computed(() => (data.style === 'ordered' ? 'ol' : 'ul'));
 </script>
 
 <template>
   <component :is="listTag">
-    <li v-for="(item, index) in items" :key="index">{{ item }}</li>
+    <li v-for="(item, index) in data.items" :key="index">{{ item }}</li>
   </component>
 </template>

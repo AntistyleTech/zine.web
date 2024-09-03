@@ -1,9 +1,9 @@
 <script setup>
 defineProps({
-  text: String,
+  data: Object
 });
 </script>
 
 <template>
-  <p>{{ text }}</p>
+  <p>{{ data.text }}</p>
 </template>
