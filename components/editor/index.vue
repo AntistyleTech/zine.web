@@ -9,12 +9,18 @@ const placeholderText = 'Write something...'
 
 const props = defineProps({
   initialData: {
-    type: Array,
+    type: Object,
+    default: () => ({}) // Устанавливаем пустой объект по умолчанию
   },
 });
 
-const initialData = { blocks: props.initialData.data.blocks};
-console.log(initialData)
+// Проверяем, есть ли данные для поста
+const isNewPost = !props.initialData?.data?.blocks;
+
+// Инициализируем данные для редактора
+const initialData = !isNewPost ? { blocks: props.initialData.data.blocks } : { blocks: [] };
+
+
 onMounted(() => {
   editor.value = new EditorJS({
     holder: 'editor',
@@ -41,26 +47,11 @@ onMounted(() => {
       console.log('Editor.js is ready to work!')
     },
 
-    // onChange: async (api, event) => {
-    //   try {
-    //     const output = await api.saver.save()
-    //     console.log('Editor post:', output)
-    //
-    //     const contentItems = output.blocks.map(block => ({
-    //       type: block.type,
-    //       data: block.data,
-    //     }));
-    //     console.log(contentItems)
-    //   } catch (error) {
-    //     console.error('Error saving editor post:', error)
-    //   }
-    // },
   })
 })
 
   const savePost = async () => {
     const token = useCookie('XSRF-TOKEN')
-    console.log(token.value)
     if (editor.value) {
       try {
         const output = await editor.value.save();
@@ -105,8 +96,8 @@ onBeforeUnmount(() => {
 <template>
   <div class="flex justify-center items-start w-full">
     <div  class="block w-3/4 shadow p-2 h-screen" id="editor"></div>
-    <UButton @click="savePost"> Save</UButton>
-    <UButton v-if="initialData" @click="updatePost"> Update</UButton>
+    <UButton v-if="isNewPost" @click="savePost">Save</UButton>
+    <UButton v-else @click="updatePost">Update</UButton>
   </div>
 </template>
 

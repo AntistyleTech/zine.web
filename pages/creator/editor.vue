@@ -4,7 +4,7 @@
 
 <template>
 <ClientOnly>
-  <creator-editor/>
+  <Editor/>
 </ClientOnly>
 </template>
 

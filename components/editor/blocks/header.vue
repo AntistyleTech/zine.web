@@ -1,14 +1,37 @@
 <script setup>
 const props = defineProps({
-  test: Object
+  data: Object
 });
-
+console.log(props.data)
 </script>
 
 <template>
   <h1>Header</h1>
-  <div :is="`h${props.test.level}`" class="border m-2 p-2">
-    {{props.test.text
-    <pre>{{ props.test }}</pre>
-  </div>
+  <component :is="`h${props.data.level}`" class="border m-2 p-2">
+
+    {{props.data.text}}
+  </component>
 </template>
+
+<style>
+/*Style Header EditorJs */
+h1{
+  @apply text-3xl font-bold
+}
+h2{
+  @apply text-2xl font-semibold
+}
+h3{
+  @apply text-xl font-semibold
+}
+h4{
+  @apply text-lg font-semibold
+}
+h5{
+  @apply text-base font-semibold
+}
+h6{
+  @apply text-base font-semibold
+}
+
+</style>
