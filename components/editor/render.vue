@@ -18,8 +18,7 @@ function getComponent(type) {
 
 <template>
 <div>
-  <component class="border m-2 p-2 "
-             v-for="(block, index) in blocks"
+  <component v-for="(block, index) in blocks"
              :is="getComponent(block.type)"
              :key="index"
              :data="block.data"

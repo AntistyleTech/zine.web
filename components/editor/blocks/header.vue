@@ -1,19 +1,19 @@
 <script setup>
-const props = defineProps({
+
+  const props = defineProps({
   data: Object
 });
-console.log(props.data)
+
 </script>
 
 <template>
-  <h1>Header</h1>
-  <component :is="`h${props.data.level}`" class="border m-2 p-2">
-
+  <component :is="`h${props.data.level}`" class="mb-2">
     {{props.data.text}}
   </component>
 </template>
 
 <style>
+
 /*Style Header EditorJs */
 h1{
   @apply text-3xl font-bold

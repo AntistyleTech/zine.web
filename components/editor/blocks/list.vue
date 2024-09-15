@@ -14,6 +14,7 @@ const listTag = props.data && props.data.style === 'ordered' ? 'ol' : 'ul';
 </template>
 
 <style>
+
 ul, ol {
   list-style-position: inside; /* Список отображается внутри элемента */
   padding-left: 0; /* Убираем отступ по умолчанию */
@@ -29,7 +30,6 @@ li {
   color: #333333;
 }
 
-/* Стили для упорядоченного списка (ol) */
 ol {
   counter-reset: list-counter; /* Сброс счетчика для кастомной нумерации */
 }
@@ -46,7 +46,6 @@ ol li::before {
   color: #333; /* Цвет текста номера */
 }
 
-/* Стили для неупорядоченного списка (ul) */
 ul {
   list-style-type: disc; /* Стандартные маркеры для списка */
 }

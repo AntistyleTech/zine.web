@@ -2,106 +2,106 @@
   // TODO: Change id in submenu (try to use index)
   const menus = ref([
     {
-      title: "Item 1",
-      icon: "i-majesticons-menu",
-      url: "/me",
+      title: "Create Post",
+      icon: "i-majesticons-file-line",
+      url: "/creator/editor",
       submenu: false,
       spacing: false,
     },
     {
-      title: "Item 2",
-      icon: "i-majesticons-bath-shower",
-      url: "/me",
+      title: "Posts",
+      icon: "i-majesticons-file-plus-line",
+      url: "/creator/post",
       submenu: false,
       spacing: false,
     },
-    {
-      title: "Items 3",
-      icon: "i-majesticons-bath-shower",
-      submenu: true,
-      spacing: false,
-      id: "submenu-1",
-      isOpen:false,
-      submenuItems: [
-        {
-          title: "Submenu Item 3.1",
-          url: "/me"
-        },
-        {
-          title: "Submenu Item 3.2",
-          url: "/me"
-        },
-        {
-          title: "Submenu Item 3.3",
-          url: "/me"
-        }
-      ]
-    },
-    {
-      title: "Item 4",
-      icon: "i-majesticons-bath-shower",
-      url: "/me",
-      submenu: false,
-      spacing: false,
-    },
-    {
-      title: "Item 5",
-      icon: "i-majesticons-bath-shower",
-      spacing: false,
-      submenu: true,
-      id: "submenu-2",
-      isOpen:false,
-      submenuItems: [
-        {
-          title: "Submenu Item 5.1",
-          url: "/me"
-        },
-        {
-          title: "Submenu Item 5.2",
-          url: "/me"
-        },
-        {
-          title: "Submenu Item 5.3",
-          url: "/me"
-        }
-      ]
-    },
-    {
-      title: "Item 6",
-      icon: "i-majesticons-bath-shower",
-      spacing: true,
-      submenu: true,
-      id: "submenu-3",
-      isOpen: false,
-      submenuItems: [
-        {
-          title: "Submenu Item 6.1",
-          url: "/me"
-        },
-        {
-          title: "Submenu Item 6.2",
-          url: "/me"
-        },
-        {
-          title: "Submenu Item 6.3",
-          url: "/me"
-        }
-      ]
-    },
-    {
-      title: "Item 7",
-      icon: "i-majesticons-bath-shower",
-      url: "/me",
-      spacing: true,
-      submenu: false,
-    },
-    {
-      title: "Item 8",
-      icon: "i-majesticons-bath-shower",
-      url: "/me",
-      submenu: false,
-      spacing: false,
-    },
+    // {
+    //   title: "Items 3",
+    //   icon: "i-majesticons-bath-shower",
+    //   submenu: true,
+    //   spacing: false,
+    //   id: "submenu-1",
+    //   isOpen:false,
+    //   submenuItems: [
+    //     {
+    //       title: "Submenu Item 3.1",
+    //       url: "/me"
+    //     },
+    //     {
+    //       title: "Submenu Item 3.2",
+    //       url: "/me"
+    //     },
+    //     {
+    //       title: "Submenu Item 3.3",
+    //       url: "/me"
+    //     }
+    //   ]
+    // },
+    // {
+    //   title: "Item 4",
+    //   icon: "i-majesticons-bath-shower",
+    //   url: "/me",
+    //   submenu: false,
+    //   spacing: false,
+    // },
+    // {
+    //   title: "Item 5",
+    //   icon: "i-majesticons-bath-shower",
+    //   spacing: false,
+    //   submenu: true,
+    //   id: "submenu-2",
+    //   isOpen:false,
+    //   submenuItems: [
+    //     {
+    //       title: "Submenu Item 5.1",
+    //       url: "/me"
+    //     },
+    //     {
+    //       title: "Submenu Item 5.2",
+    //       url: "/me"
+    //     },
+    //     {
+    //       title: "Submenu Item 5.3",
+    //       url: "/me"
+    //     }
+    //   ]
+    // },
+    // {
+    //   title: "Item 6",
+    //   icon: "i-majesticons-bath-shower",
+    //   spacing: true,
+    //   submenu: true,
+    //   id: "submenu-3",
+    //   isOpen: false,
+    //   submenuItems: [
+    //     {
+    //       title: "Submenu Item 6.1",
+    //       url: "/me"
+    //     },
+    //     {
+    //       title: "Submenu Item 6.2",
+    //       url: "/me"
+    //     },
+    //     {
+    //       title: "Submenu Item 6.3",
+    //       url: "/me"
+    //     }
+    //   ]
+    // },
+    // {
+    //   title: "Item 7",
+    //   icon: "i-majesticons-bath-shower",
+    //   url: "/me",
+    //   spacing: true,
+    //   submenu: false,
+    // },
+    // {
+    //   title: "Item 8",
+    //   icon: "i-majesticons-bath-shower",
+    //   url: "/me",
+    //   submenu: false,
+    //   spacing: false,
+    // },
   ])
 
   const props = defineProps({

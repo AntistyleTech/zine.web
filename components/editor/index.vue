@@ -10,16 +10,13 @@ const placeholderText = 'Write something...'
 const props = defineProps({
   initialData: {
     type: Object,
-    default: () => ({}) // Устанавливаем пустой объект по умолчанию
+    default: () => ({})
   },
 });
 
-// Проверяем, есть ли данные для поста
-const isNewPost = !props.initialData?.data?.blocks;
+const isNewPost = !props.initialData;
 
-// Инициализируем данные для редактора
-const initialData = !isNewPost ? { blocks: props.initialData.data.blocks } : { blocks: [] };
-
+const initialData = !isNewPost ? { blocks: props.initialData } : { blocks: [] };
 
 onMounted(() => {
   editor.value = new EditorJS({
@@ -43,7 +40,6 @@ onMounted(() => {
     },
 
     onReady: () => {
-      editor.value.render(editor.data)
       console.log('Editor.js is ready to work!')
     },
 
@@ -55,7 +51,16 @@ onMounted(() => {
     if (editor.value) {
       try {
         const output = await editor.value.save();
-        console.log('Editor post:', output);
+
+        let title = '';
+        if (output.blocks.length > 0) {
+          const firstBlock = output.blocks[0];
+          if (firstBlock.type === 'header' || firstBlock.type === 'paragraph') {
+            title = firstBlock.data.text;
+          }
+        }
+
+        console.log(title);
 
         const contentItems = output.blocks.map(block => ({
           type: block.type,
@@ -72,7 +77,7 @@ onMounted(() => {
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest'
           },
-        body: JSON.stringify({ contentItems }),
+        body: JSON.stringify({ title, contentItems }),
         });
 
         const result = await response;
@@ -134,6 +139,7 @@ onBeforeUnmount(() => {
     left: 0;
   }
 }
+
 /*Style Header EditorJs */
 h1.ce-header{
   @apply text-3xl font-bold

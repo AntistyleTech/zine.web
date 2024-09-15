@@ -1,12 +1,16 @@
 <script setup lang="ts">
-const id = useRoute().params.id
-const {data: post} = await useAsyncData(() => usePost().getPost(Number(id)));
-console.log(post)
+
+  const id = useRoute().params.id
+
+  const {data: post} = await useAsyncData(() => usePost().getPost(Number(id)));
+
 </script>
 
 <template>
-  <!--  <CreatorPostEdit :post="post.va"/>-->
-  <UButton   :to="`/creator/post/edit/${post.id}`">EDIT</UButton>
-<!--  <creator-editor :initial-data="post.blocks"/>-->
-  {{post}}
+  <div>
+    <client-only>
+      <Editor :initial-data="post.data.blocks"/>
+    </client-only>
+
+  </div>
 </template>
