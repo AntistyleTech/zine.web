@@ -1,8 +1,18 @@
 <script setup lang="ts">
 
-  defineProps({
+  const props = defineProps({
     post: Object
   })
+
+  const { deletePost } = usePost();
+
+  const postDelete = async () => {
+    try {
+      await deletePost(Number(props.post.id));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
 </script>
 
@@ -10,7 +20,7 @@
     <UCard class="m-2">
       <template #header>
         <div class="h-8">
-          <h5 class="font-bold text-md">{{post.id}} : {{post.title}}</h5>
+          <h5 class="font-bold text-md">{{props.post.id}} : {{props.post.title}}</h5>
         </div>
       </template>
 
@@ -20,13 +30,14 @@
               size="sm"
               icon="i-majesticons-edit-pen-2-line"
               class="mr-2"
-              @click="navigateTo('/creator/post/edit/' + post.id)"
+              @click="navigateTo('/creator/post/edit/' + props.post.id)"
           />
-          <CreatorPostShow :id="post.id"/>
+          <CreatorPostShow :id="props.post.id"/>
           <UButton
               size="sm"
               icon="i-majesticons-delete-bin"
-              @click="navigateTo('/creator/post/' + post.id)"
+              @click="postDelete"
+
           />
         </div>
       </template>

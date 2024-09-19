@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-  const open = ref<boolean>(true);
+  const open = ref<boolean>(false);
 
   const colorMode = useColorMode()
 

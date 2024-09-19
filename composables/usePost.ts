@@ -8,11 +8,17 @@ export const usePost = () => {
     return useApi('/post')
   }
 
+  function deletePost(id: Number) {
+    return useApi('/post/' + id, {
+      method: 'DELETE'
+    })
+  }
+
   function exportPost(id: Number, target: any) {
     return useApi('/post/', {
       method: 'POST'
     })
   }
 
-  return {getPosts, getPost, exportPost}
+  return {getPosts, getPost, deletePost, exportPost}
 }
