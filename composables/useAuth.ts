@@ -8,11 +8,11 @@ export function useAuth() {
     await sanctumCookie()
   }
 
-  async function register(username: string, email: string, password: string) {
+  async function register(name: string, email: string, password: string) {
     await updateSanctumCookie()
     return useApi('/auth/register', {
       method: 'POST',
-      body: {username, email, password}
+      body: {name, email, password}
     })
   }
 

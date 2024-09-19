@@ -1,8 +1,24 @@
 export const usePost = () => {
 
-  function getPosts() {
-    return useApi('/posts')
+  function getPost(id: Number) {
+    return useApi('/post/' + id);
   }
 
-  return {getPosts}
+  function getPosts() {
+    return useApi('/post')
+  }
+
+  function deletePost(id: Number) {
+    return useApi('/post/' + id, {
+      method: 'DELETE'
+    })
+  }
+
+  function exportPost(id: Number, target: any) {
+    return useApi('/post/', {
+      method: 'POST'
+    })
+  }
+
+  return {getPosts, getPost, deletePost, exportPost}
 }

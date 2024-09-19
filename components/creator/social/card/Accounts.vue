@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 
 const redirect = () => {
-  navigateTo('http://api.host.local/api/social/tumblr/auth', {
+  navigateTo('http://localhost/api/social/tumblr/auth', {
     external: true
   });
 }

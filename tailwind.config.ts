@@ -1,0 +1,65 @@
+import type { Config } from 'tailwindcss'
+import defaultTheme from 'tailwindcss/defaultTheme'
+
+export default <Partial<Config>>{
+    theme: {
+        extend: {
+            colors: {
+                transparent: 'transparent',
+                current: 'currentColor',
+                'purple': {
+                    '50': '#faf7fd',
+                    '100': '#f2edfa',
+                    '200': '#e8dff5',
+                    '300': '#cbb5e7',
+                    '400': '#bda1df',
+                    '500': '#a37cd0',
+                    '600': '#8d5fbe',
+                    '700': '#774ba5',
+                    '800': '#654188',
+                    '900': '#52356e',
+                    '950': '#361d4e',
+                },
+                'pink': {
+                    '50': '#fef1f8',
+                    '100': '#fee5f3',
+                    '200': '#ffc7e7',
+                    '300': '#ffa1d5',
+                    '400': '#ff66b7',
+                    '500': '#fb399a',
+                    '600': '#eb1776',
+                    '700': '#cd095b',
+                    '800': '#a90b4c',
+                    '900': '#8d0e41',
+                    '950': '#570023',
+                },
+                'blue': {
+                    '50': '#effaff',
+                    '100': '#d5f2ff',
+                    '200': '#b8edff',
+                    '300': '#79e0ff',
+                    '400': '#32d1fe',
+                    '500': '#07bdf0',
+                    '600': '#0099ce',
+                    '700': '#007aa6',
+                    '800': '#036689',
+                    '900': '#095471',
+                    '950': '#06354b',
+                },
+                'yellow': {
+                    '50': '#fff7ed',
+                    '100': '#ffedd5',
+                    '200': '#ffddb6',
+                    '300': '#ffba72',
+                    '400': '#fd923a',
+                    '500': '#fc7313',
+                    '600': '#ed5709',
+                    '700': '#c4400a',
+                    '800': '#9c3310',
+                    '900': '#7d2c11',
+                    '950': '#441406',
+                },
+            },
+        },
+    },
+}
