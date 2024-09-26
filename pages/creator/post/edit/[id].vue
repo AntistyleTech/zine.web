@@ -9,7 +9,7 @@
 <template>
   <div>
     <client-only>
-      <Editor :initial-data="post.data.blocks"/>
+      <Editor :initial-data="post.data.blocks" :id="id"/>
     </client-only>
 
   </div>

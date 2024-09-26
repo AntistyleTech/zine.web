@@ -12,9 +12,8 @@
   </component>
 </template>
 
-<style>
+<style scoped>
 
-/*Style Header EditorJs */
 h1{
   @apply text-3xl font-bold
 }

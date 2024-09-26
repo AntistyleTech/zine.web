@@ -1,159 +1,189 @@
 <script setup lang="js">
-import EditorJS from '@editorjs/editorjs';
-import Header from '@editorjs/header';
-import List from '@editorjs/list';
-import Paragraph from "@editorjs/paragraph";
-
-const editor = ref(null);
-const placeholderText = 'Write something...';
-
+// import EditorJS from '@editorjs/editorjs';
+// import Header from '@editorjs/header';
+// import List from '@editorjs/list';
+// import Paragraph from "@editorjs/paragraph";
+//
+// const editor = ref(null);
+// const placeholderText = 'Write something...';
+//
+// const props = defineProps({
+//   initialData: {
+//     type: Object,
+//     default: () => ({})
+//   },
+//   id: {
+//     type: Number,
+//   }
+// });
+//
+// const isNewPost = Object.keys(props.initialData).length === 0;
+//
+// const initialData = isNewPost
+//     ? {}
+//     : {
+//       time: 1,
+//       version: "2.30.5",
+//       blocks: props.initialData
+//     };
+//
+//   editor.value = new EditorJS({
+//     holder: 'editor',
+//     autofocus: true,
+//     placeholder: placeholderText,
+//     data: initialData,
+//
+//     tools: {
+//       header: {
+//         class: Header,
+//         levels: [1, 2, 3, 4, 5, 6],
+//         defaultLevel: 3,
+//         inlineToolbar: true
+//       },
+//       paragraph: {
+//         class: Paragraph,
+//       },
+//       list: {
+//         class: List,
+//       }
+//     },
+//
+//     onReady: () => {
+//
+//       console.log(initialData)
+//       console.log('Editor.js is ready!');
+//
+//     },
+//     onChange: () => {
+//       console.log('Content has been changed!');
+//     }
+//
+//   })
+//
+// const savePost = async () => {
+//   const token = useCookie('XSRF-TOKEN');
+//   if (editor.value) {
+//     try {
+//       const output = await editor.value.save();
+//       console.log(output)
+//       let title = '';
+//       if (output.blocks.length > 0) {
+//         const firstBlock = output.blocks[0];
+//         if (firstBlock.type === 'header' || firstBlock.type === 'paragraph') {
+//           title = firstBlock.data.text;
+//         }
+//         if (title.length > 255) {
+//           title = title.substring(0, 255);
+//         }
+//       }
+//
+//       const contentItems = output.blocks.map(block => ({
+//         type: block.type,
+//         data: block.data,
+//       }));
+//
+//       const response = await $fetch('http://localhost/api/post', {
+//         method: 'POST',
+//         credentials: 'include',
+//         headers: {
+//           'X-XSRF-TOKEN': token.value,
+//           'Accept': 'application/json, text/plain, */*',
+//           'Content-Type': 'application/json',
+//           'X-Requested-With': 'XMLHttpRequest'
+//         },
+//         body: JSON.stringify({ title, contentItems }),
+//       });
+//
+//       const result = await response;
+//       console.log('Server response:', result);
+//     } catch (error) {
+//       console.error('Error saving editor post:', error);
+//     }
+//   }
+// };
+//
+// const updatePost = async() => {
+//   const token = useCookie('XSRF-TOKEN');
+//   if (editor.value) {
+//     try {
+//
+//       const output = await editor.value.save();
+//
+//       let title = '';
+//       if (output.blocks.length > 0) {
+//         const firstBlock = output.blocks[0];
+//         if (firstBlock.type === 'header' || firstBlock.type === 'paragraph') {
+//           title = firstBlock.data.text;
+//
+//           if (title.length > 255) {
+//             title = title.substring(0, 255);
+//           }
+//         }
+//       }
+//
+//       const contentItems = output.blocks.map(block => ({
+//         type: block.type,
+//         data: block.data,
+//       }));
+//
+//       const response = await $fetch(`http://localhost/api/post/${props.id}`, {
+//         method: 'PUT',
+//         credentials: 'include',
+//         headers: {
+//           'X-XSRF-TOKEN': token.value,
+//           'Accept': 'application/json, text/plain, */*',
+//           'Content-Type': 'application/json',
+//           'X-Requested-With': 'XMLHttpRequest'
+//         },
+//         body: JSON.stringify({ title, contentItems }),
+//       });
+//
+//       const result = await response;
+//       console.log('Post updated successfully:', result);
+//     } catch (error) {
+//       console.error('Error updating post:', error);
+//     }
+//   }
+// };
+//
+// onBeforeUnmount(() => {
+//   if (editor.value) {
+//     editor.value.destroy();
+//   }
+// });
 const props = defineProps({
   initialData: {
     type: Object,
     default: () => ({})
   },
-});
-
-const isNewPost = computed(() => !props.initialData);
-console.log(isNewPost)
-const initialData = ref(isNewPost.value ?  null  : { blocks: props.initialData });
-console.log(initialData)
-const initializeEditor = () => {
-  if (editor.value) {
-    editor.value.destroy();
+  id: {
+    type: Number || String,
   }
-
-  editor.value = new EditorJS({
-    holder: 'editor',
-    autofocus: true,
-    placeholder: placeholderText,
-    data: initialData,
-
-    tools: {
-      header: {
-        class: Header,
-        levels: [1, 2, 3, 4, 5, 6],
-        defaultLevel: 3,
-        inlineToolbar: true
-      },
-      paragraph: {
-        class: Paragraph,
-      },
-      list: {
-        class: List,
-      }
-    },
-
-    onReady: () => {
-      console.log('Editor.js is ready!');
-    },
-    onChange: () => {
-      console.log('Content has been changed!');
-    }
-  });
-};
-
-onMounted(() => {
-  initializeEditor();
 });
 
+const isNewPost = Object.keys(props.initialData).length === 0;
 
-watch(() => props.initialData, (newData) => {
-  initialData.value = newData;
-  initializeEditor();
-});
+const { initEditor, getEditorData } = useEditor(isNewPost ? {} : { blocks: props.initialData });
 
+const { createPost, updatePost } = usePost();
 
-const savePost = async () => {
-  const token = useCookie('XSRF-TOKEN');
-  if (editor.value) {
-    try {
-      const output = await editor.value.save();
+initEditor();
 
-      let title = '';
-      if (output.blocks.length > 0) {
-        const firstBlock = output.blocks[0];
-        if (firstBlock.type === 'header' || firstBlock.type === 'paragraph') {
-          title = firstBlock.data.text;
-        }
-      }
-
-      const contentItems = output.blocks.map(block => ({
-        type: block.type,
-        data: block.data,
-      }));
-
-      const response = await $fetch('http://localhost/api/post', {
-        method: 'POST',
-        credentials: 'include',
-        headers: {
-          'X-XSRF-TOKEN': token.value,
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: JSON.stringify({ title, contentItems }),
-      });
-
-      const result = await response;
-      console.log('Server response:', result);
-    } catch (error) {
-      console.error('Error saving editor post:', error);
-    }
+const handleSave = async () => {
+  const editorData = await getEditorData();
+  if (isNewPost) {
+    console.log(1)
+    await createPost(editorData);
+  } else {
+    await updatePost(props.id, editorData);
   }
 };
-
-const updatePost = async () => {
-  const token = useCookie('XSRF-TOKEN');
-  if (editor.value) {
-    try {
-      const output = await editor.value.save();
-
-      let title = '';
-      if (output.blocks.length > 0) {
-        const firstBlock = output.blocks[0];
-        if (firstBlock.type === 'header' || firstBlock.type === 'paragraph') {
-          title = firstBlock.data.text;
-        }
-      }
-
-      const contentItems = output.blocks.map(block => ({
-        type: block.type,
-        data: block.data,
-      }));
-
-      const response = await $fetch('http://localhost/api/post/update', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'X-XSRF-TOKEN': token.value,
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        body: JSON.stringify({ title, contentItems }),
-      });
-
-      const result = await response;
-      console.log('Server response:', result);
-    } catch (error) {
-      console.error('Error updating editor post:', error);
-    }
-  }
-};
-
-onBeforeUnmount(() => {
-  if (editor.value) {
-    editor.value.destroy();
-  }
-});
 </script>
 
 <template>
   <div class="flex justify-center items-start w-full">
-    <div  class="block w-3/4 shadow p-2 h-screen" id="editor"></div>
-    <UButton v-if="isNewPost" @click="savePost">Save</UButton>
-    <UButton v-else @click="updatePost">Update</UButton>
+    <div class="block w-3/4 shadow p-2 h-screen" id="editor"></div>
+    <UButton @click="handleSave">{{ isNewPost ? 'Save' : 'Update' }}</UButton>
   </div>
 </template>
 

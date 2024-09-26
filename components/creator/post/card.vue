@@ -6,13 +6,7 @@
 
   const { deletePost } = usePost();
 
-  const postDelete = async () => {
-    try {
-      await deletePost(Number(props.post.id));
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  const postDelete = async () => { await deletePost(Number(props.post.id)); };
 
 </script>
 
@@ -37,7 +31,6 @@
               size="sm"
               icon="i-majesticons-delete-bin"
               @click="postDelete"
-
           />
         </div>
       </template>

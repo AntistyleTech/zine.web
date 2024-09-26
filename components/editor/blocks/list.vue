@@ -13,7 +13,7 @@ const listTag = props.data && props.data.style === 'ordered' ? 'ol' : 'ul';
   </component>
 </template>
 
-<style>
+<style scoped>
 
 ul, ol {
   list-style-position: inside; /* Список отображается внутри элемента */

@@ -7,12 +7,14 @@ export function useApi(
     ? 'http://localhost/api'
     : 'http://host.docker.internal/api';
 
+  // TODO: provided headers will be overwrite, not merged
+
   let defaultOptions: any = {
     baseURL: apiBaseUrl,
     credentials: "include",
     watch: false,
     headers: {
-      Accept: 'application/json'
+      Accept: 'application/json, text/plain, */*'
     }
   }
 
