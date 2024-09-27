@@ -3,6 +3,7 @@ import type { OutputData, BlockToolData, ToolConstructable } from '@editorjs/edi
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import Paragraph from '@editorjs/paragraph';
+import ImageTool from '@editorjs/image';
 import { ref, onBeforeUnmount } from 'vue';
 
 interface EditorData {
