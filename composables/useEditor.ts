@@ -3,7 +3,10 @@ import type { OutputData, BlockToolData, ToolConstructable } from '@editorjs/edi
 import Header from '@editorjs/header';
 import List from '@editorjs/list';
 import Paragraph from '@editorjs/paragraph';
+import Quote from '@editorjs/quote';
 import ImageTool from '@editorjs/image';
+import NestedList from '@editorjs/nested-list';
+import DragDrop from 'editorjs-drag-drop';
 import { ref, onBeforeUnmount } from 'vue';
 
 interface EditorData {
@@ -34,11 +37,41 @@ export function useEditor(initialData: OutputData = { blocks: [] }) {
         paragraph: {
           class: Paragraph  as unknown as ToolConstructable,
         },
+        // list: {
+        //   class: List  as unknown as ToolConstructable,
+        // },
+        quote: {
+          class: Quote as unknown as ToolConstructable,
+          inlineToolbar: true,
+          config: {
+            quotePlaceholder: 'Enter a quote',
+            captionPlaceholder: 'Quote\'s author',
+          },
+        },
         list: {
-          class: List  as unknown as ToolConstructable,
+          class: NestedList as unknown as ToolConstructable,
+          inlineToolbar: true,
+          config: {
+            defaultStyle: 'unordered'
+          },
+        },
+        image: {
+          class: ImageTool as unknown as ToolConstructable,
+          config: {
+            endpoints: {
+              byFile: 'http://localhost/api/post/uploadFile ', // Your backend file uploader endpoint
+              byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+            },
+            field: 'image', // Название поля в запросе
+            additionalRequestHeaders: {
+              'X-XSRF-TOKEN': useCookie('XSRF-TOKEN').value, // Добавляем токен для защиты от CSRF
+            }
+          },
+
         }
       },
       onReady: () => {
+        new DragDrop(editor.value);
         console.log('Editor.js is ready!', initialData);
       },
       onChange: () => {
