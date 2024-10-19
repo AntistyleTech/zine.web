@@ -37,23 +37,8 @@ export function useEditor(initialData: OutputData = { blocks: [] }) {
         paragraph: {
           class: Paragraph  as unknown as ToolConstructable,
         },
-        // list: {
-        //   class: List  as unknown as ToolConstructable,
-        // },
-        quote: {
-          class: Quote as unknown as ToolConstructable,
-          inlineToolbar: true,
-          config: {
-            quotePlaceholder: 'Enter a quote',
-            captionPlaceholder: 'Quote\'s author',
-          },
-        },
         list: {
-          class: NestedList as unknown as ToolConstructable,
-          inlineToolbar: true,
-          config: {
-            defaultStyle: 'unordered'
-          },
+          class: List  as unknown as ToolConstructable,
         },
         image: {
           class: ImageTool as unknown as ToolConstructable,
