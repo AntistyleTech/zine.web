@@ -1,27 +1,23 @@
-name: web-production
-
-version: "3.9"
-
 services:
-    app:
-        build: .
-        restart: unless-stopped
-        labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.web.rule=Host(`web.host.production`)"
-            - "traefik.http.routers.web.service=web"
-            - "traefik.http.services.web.loadbalancer.server.port=3000"
-        hostname: web
-        ports:
-            - "3000:3000"
-        networks:
-            - web
-            - reverse-proxy
+  app:
+    build: .
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`web.host.production`)"
+      - "traefik.http.routers.web.service=web"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+    hostname: web
+    ports:
+      - "3000:3000"
+    networks:
+      - web
+      - reverse-proxy
 
 networks:
-    web:
-        driver: bridge
+  web:
+    driver: bridge
 
-    reverse-proxy:
-        driver: bridge
-        external: true
+  reverse-proxy:
+    driver: bridge
+    name: reverse-proxy

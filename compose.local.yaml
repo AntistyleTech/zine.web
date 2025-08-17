@@ -1,35 +1,26 @@
-name: web-local
-
-version: "3.9"
+name: zine
 
 services:
-    app:
-        build:
-            context: .
-            dockerfile: Dockerfile
-            target: node
-        command: npm run dev -- -o
-        environment:
-            HOST: 0.0.0.0
-        labels:
-            - "traefik.enable=true"
-            - "traefik.http.routers.web.rule=PathPrefix(`/`)"
-            - "traefik.http.routers.web.service=web"
-            - "traefik.http.services.web.loadbalancer.server.port=3000"
-        volumes:
-            - ./:/usr/src/app
-        hostname: web
-        ports:
-            - "3000:3000" # Nuxt port
-            - "24678:24678" # Vite port
-        networks:
-            - web
-            - reverse-proxy
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: local
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=reverse-proxy"
+      - "traefik.http.routers.web.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.web.service=web"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    hostname: web
+    networks:
+      - reverse-proxy
 
 networks:
-    web:
-        driver: bridge
-
-    reverse-proxy:
-        driver: bridge
-        external: true
+  reverse-proxy:
+    driver: bridge
+    name: reverse-proxy

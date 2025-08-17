@@ -6,6 +6,9 @@ gid=1000
 
 .PHONY: build rebuild up down
 
+exec:
+	@docker compose -p zine exec web sh
+
 build:
 	@docker compose -f compose.$(env).yaml build
 
